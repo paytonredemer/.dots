@@ -1,0 +1,23 @@
+#!/bin/sh
+# Script to control volume and signal to a blocks program
+
+command=pactl
+signal=10
+blocks=i3blocks
+
+case $1 in
+    up)
+        $command set-sink-volume @DEFAULT_SINK@ +5%
+        ;;
+    down)
+        $command set-sink-volume @DEFAULT_SINK@ -5%
+        ;;
+    mute)
+        $command set-sink-mute @DEFAULT_SINK@ toggle
+        ;;
+    mute-input)
+        $command set-source-mute 1 toggle
+        ;;
+esac
+
+pkill -SIGRTMIN+$signal $blocks

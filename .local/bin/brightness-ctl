@@ -1,0 +1,15 @@
+#!/bin/sh
+# Script to control to laptop backlight and display notification with new brightness percentage
+
+case $1 in
+    up)
+        brightnessctl set +5%
+        ;;
+    down)
+        brightnessctl set 5%-
+        ;;
+esac
+
+brightness=$(awk "BEGIN {print $(brightnessctl get) / $(brightnessctl max) * 100}")
+
+notify-send -t 1000 -r 100 "   Brightness" "$brightness%"
