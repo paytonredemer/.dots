@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# X11
+xsetroot -cursor_name left_ptr
+monitorSetup.sh
+
+if [ -f "$XDG_CONFIG_HOME/X11/Xresources" ]; then
+    xrdb -load "$XDG_CONFIG_HOME"/X11/Xresources
+fi
+
+# sys-tray
+nm-applet &
+blueman-applet &
+
+# daemons
+udiskie &
+dunst &
+picom &
+
+# wm
+exec_wm
